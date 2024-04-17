@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Update package lists and install nginx
+apt-get update
+apt-get install -y nginx
+
+# Backup the original nginx configuration file
+cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+# Change the user directive in the nginx configuration file to 'nginx'
+sed -i 's/^user .*/user nginx;/g' /etc/nginx/nginx.conf
+
+# Modify the default Nginx server block to listen on port 8080 and all IPs
+echo '
+server {
+    listen 8080 default_server;
+    listen [::]:8080 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}' > /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+service nginx restart
