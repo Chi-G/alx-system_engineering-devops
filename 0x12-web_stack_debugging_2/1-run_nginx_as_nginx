@@ -1,27 +1,18 @@
 #!/usr/bin/env bash
+# This script configures Nginx to run as the nginx user.
 
-# Install Nginx
-apt-get update
-apt-get install -y nginx
+# Stop the existing Nginx process (if running)
+/usr/bin/nginx -s stop
 
-# Change the user directive in the nginx configuration file to 'nginx'
-sed -i 's/^user .*/user nginx;/g' /etc/nginx/nginx.conf
+# Update the Nginx configuration to listen on all active IPs and port 8080
+sed -i 's/listen 80;/listen 8080;/g' /etc/nginx/nginx.conf
 
-# Modify the default Nginx server block to listen on port 8080 and all IPs
-echo '
-server {
-    listen 8080 default_server;
-    listen [::]:8080 default_server;
+# Change ownership of necessary directories and files
+chown -R nginx:nginx /etc/nginx
+chown -R nginx:nginx /var/log/nginx
 
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
+# Start Nginx as the nginx user
+/usr/bin/nginx
 
-    server_name _;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}' > /etc/nginx/sites-available/default
-
-# Restart Nginx to apply changes
-service nginx restart
+# Verify that Nginx is running as expected
+ps auxff | grep ngin[x]
