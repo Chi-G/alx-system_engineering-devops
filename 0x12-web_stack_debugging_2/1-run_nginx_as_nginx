@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-# Update package lists and install nginx
+# Install Nginx
 apt-get update
 apt-get install -y nginx
-
-# Backup the original nginx configuration file
-cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 
 # Change the user directive in the nginx configuration file to 'nginx'
 sed -i 's/^user .*/user nginx;/g' /etc/nginx/nginx.conf
