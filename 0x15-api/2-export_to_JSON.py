@@ -25,7 +25,7 @@ if __name__ == "__main__":
                 task_info = {
                         "task": todo.get("title"),
                         "completed": todo.get("completed"),
-                        "username": username
+                        "username": user.get("username")
                 }
                 data_to_export[user_id].append(task_info)
                 
