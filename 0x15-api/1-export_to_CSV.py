@@ -13,7 +13,10 @@ if __name__ == "__main__":
     username = user.get("username")
     params = {"userId": user_id}
 
-    todos_response = requests.get(url + "todos", params=params)
+    todos_response = requests.get(
+        url + "todos",
+        params=params
+    )
     todos = todos_response.json()
 
     with open("{}.csv".format(user_id), "w", newline="") as csvfile:
