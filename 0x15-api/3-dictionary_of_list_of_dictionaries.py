@@ -1,11 +1,3 @@
-#!/usr/bin/python3
-"""
-Exports to-do list information of all employees to JSON format.
-
-This script fetches the user information and to-do lists for all employees
-from the JSONPlaceholder API and exports the data to a JSON file.
-"""
-
 import json
 import requests
 
@@ -17,7 +9,7 @@ def fetch_user_data():
 
     for user in users:
         user_id = user["id"]
-        todo_response = requests.get(url + f"todos?userId={user_id}")  # Corrected typo: `request` to `requests`
+        todo_response = requests.get(url + f"todos?userId={user_id}")
         todo_list = todo_response.json()
         data_to_export[user_id] = []
 
@@ -29,6 +21,7 @@ def fetch_user_data():
             }
             data_to_export[user_id].append(task_info)
     return data_to_export
+
 
 if __name__ == "__main__":
     data_to_export = fetch_user_data()
