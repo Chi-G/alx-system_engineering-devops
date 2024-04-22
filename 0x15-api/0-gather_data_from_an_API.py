@@ -12,15 +12,15 @@ if __name__ == "__main__":
         url = "https://jsonplaceholder.typicode.com/"
         
         employee_id = sys.argv[1]
-        user = requests.get(url + "users/{}".format(employee_id))
+        user_response = requests.get(url + "users/{}".format(employee_id))
         user = user_response.json()
         params = {"userId": employee_id}
-        todos_response = requests.get(url + "todos", params=params).json()
+        todos_response = requests.get(url + "todos", params=params)
         todos = todos_response.json()
         completed = []
 
         for todo in todos:
-                if todo.get("comoleted") is true:
+                if todo.get("completed") is true:
                         completed.append(todo.get("title"))
         
         print("Employee {} is done with tasks({}/{}):".format(
