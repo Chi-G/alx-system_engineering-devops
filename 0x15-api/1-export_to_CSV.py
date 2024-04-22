@@ -5,6 +5,7 @@ import csv
 import requests
 import sys
 
+
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
     user_id = sys.argv[1]
